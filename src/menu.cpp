@@ -1,15 +1,31 @@
-
-#include <iostream>
 #include "menu.h"
 #include "engine.h"
 #include "game.h"
 #include <SDL_ttf.h>
 
-using namespace std;
-
-
 void MainMenu::DrawMainMenu()
 {
+	// super simple title color changer
+	if (!change) {
+		red += 5;
+		blue -= 2;
+		if (red >= 240) {
+			change = true;
+		}
+	}
+	else {
+		red -= 5;
+		blue += 2;
+		if (red <= 10) {
+			change = false;
+		}
+	}
+
+	TitleColor = { red, 20, blue };
+
+	titleMessage = TTF_RenderText_Solid(titleFont, "ARKANOID", TitleColor);
+	title = SDL_CreateTextureFromSurface(render, titleMessage);
+
 	SDL_SetRenderDrawColor(render, 0, 40, 20, 255);
 	
 	SDL_RenderFillRect(render, &text01_rect);
@@ -22,8 +38,8 @@ void MainMenu::DrawMainMenu()
 	SDL_RenderCopy(render, title, NULL, &title_rect);
 
 	// Don't forget to free your surface and texture
-	//SDL_FreeSurface(surfaceMessage);
-	//SDL_DestroyTexture(Message);
+	SDL_FreeSurface(titleMessage);
+	SDL_DestroyTexture(title);
 }
 
 void MainMenu::InitTexts()
@@ -41,9 +57,9 @@ void MainMenu::InitTexts()
 	title = SDL_CreateTextureFromSurface(render, titleMessage);
 
 	//create a rect
-	text01_rect.x = 200;  //controls the rect's x coordinate 
-	text01_rect.y = 200; // controls the rect's y coordinte
-	text01_rect.w = 400; // controls the width of the rect
+	text01_rect.x = 200; 
+	text01_rect.y = 200;
+	text01_rect.w = 400;
 	text01_rect.h = 100;
 
 	text02_rect.x = 200;
@@ -70,4 +86,22 @@ void MainMenu::InitTexts()
 
 MainMenu::MainMenu()
 {
+	text01 = nullptr;
+	text02 = nullptr;
+	text03 = nullptr;
+	title = nullptr;
+
+	text01_rect = { 0,0,0,0 };
+	text02_rect = { 0,0,0,0 };
+	text03_rect = { 0,0,0,0 };
+	title_rect = { 0,0,0,0 };
+
+	TitleColor = {0, 0, 0 };
+	White = { 255, 255, 255 };
+	change = false;
+
+	startMessage = NULL;
+	editorMessage = NULL;
+	titleMessage = NULL;
+	loadMessage = NULL;
 }

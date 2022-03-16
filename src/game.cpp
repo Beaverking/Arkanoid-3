@@ -2,7 +2,6 @@
 #include "game.h"
 
 Player player;
-Ball ball = Ball();
 MainMenu mainMenu;
 LevelEditor levelEditor;
 bool atStart;
@@ -10,13 +9,18 @@ bool atStart;
 enum class Menu;
 
 std::vector<Block> blocks;
-std::vector<int> collidedBlocksIndex;
 TTF_Font* titleFont;
 TTF_Font* font;
 
 std::vector<Level> levels;
+std::list<Ball> balls;
+
+int hitsToAddBall;
+int ballID = 0;
 
 void ConstructLevel(std::string level) {
+
+    blocks.clear();
 
     std::string levelname = "levels/" + level + ".txt";
 
@@ -45,6 +49,15 @@ void ConstructLevel(std::string level) {
         block.updateColor();
         blocks.push_back(block);
     }
+
+    hitsToAddBall = 1;
+
+    atStart = true;
+    balls.clear();
+
+    std::cout << "size of balls: " << balls.size() << std::endl;
+
+    AddBall();
 }
 
 void LoadLevels() {
@@ -53,6 +66,7 @@ void LoadLevels() {
     //std::cout << "directory_iterator:\n";
     SDL_Color White = { 255, 255, 255 };
     int i = 0;
+
     // Iterate over the `std::filesystem::directory_entry` elements
     for (auto const& dir_entry : std::filesystem::directory_iterator{ levelsPath })
     {
@@ -105,6 +119,22 @@ void LoadFont()
     titleFont = TTF_OpenFont("assets/NeoTechItalic.ttf", 72);
     if (font == NULL || titleFont == NULL) {
         std::cout << "font not loaded" << std::endl;
+    }
+}
+
+void AddBall() {
+    Ball ball = Ball();
+    ball.ballInStart(player.rect);
+    ball.id = ballID;
+    ballID++;
+    balls.push_back(ball);
+}
+
+void HitsToNewBall() {
+    if (hitsToAddBall == 10) {
+        hitsToAddBall = 0;
+        AddBall();
+        std::cout << " add ball " << std::endl;
     }
 }
 

@@ -10,6 +10,7 @@ struct MainMenu {
 	SDL_Color TitleColor;
 
 	Uint8 red = 0;
+	Uint8 blue = 255;
 	bool change;
 
 	SDL_Rect text01_rect;

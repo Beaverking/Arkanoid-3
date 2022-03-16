@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <list>
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -20,27 +21,30 @@
 #include "level.h"
 
 
-extern Ball ball;
 extern Player player;
 extern MainMenu mainMenu;
 extern LevelEditor levelEditor;
 extern std::vector<Block> blocks;
+extern std::list<Ball> balls;
 
 extern void ConstructLevel(std::string level);
 extern void LoadAudio();
 void LoadFont();
 void LoadLevels();
+
+void AddBall();
+extern void HitsToNewBall();
+
 extern TTF_Font* titleFont;
 extern TTF_Font* font;
 
 extern bool atStart;
+extern int hitsToAddBall;
+extern int ballID;
 
 extern enum class Menu {
 	mainMenu, levelEditor, loadLevel, saveAs, game
 };
-
-
-extern std::vector<int> collidedBlocksIndex;
 
 extern std::vector<Level> levels;
 

@@ -7,6 +7,9 @@
 #include "engine.h"
 #include "game.h"
 
+// This script SUCKS, just you wait until you read it.
+
+
 void LevelEditor::DrawLevelEditor()
 {
     SDL_SetRenderDrawColor(render, 200, 24, 100, 255);
@@ -59,7 +62,96 @@ void LevelEditor::InitTexts()
     text7 = SDL_CreateTextureFromSurface(render, message7);
     text8 = SDL_CreateTextureFromSurface(render, message8);
     text9 = SDL_CreateTextureFromSurface(render, message9);
-    savetext = SDL_CreateTextureFromSurface(render, saveMessage);
+    savetext = SDL_CreateTextureFromSurface(render, saveMessage);    
+}
+
+void LevelEditor::SaveLevel(std::string saveText)
+{
+    std::string editorLevel;
+    for (unsigned int i = 0; i < 256; i++)
+    {        
+        char c = '0' + editor_blocks[i].health;
+        editorLevel.push_back(c);
+    }
+
+    std::string levelname = "levels/" + saveText + ".txt";
+    std::ofstream myfile;
+    myfile.open(levelname, std::ofstream::out | std::ofstream::trunc);
+    myfile << editorLevel;
+    myfile.close();
+    
+}
+
+void LevelEditor::DrawSaveBox()
+{
+    SDL_Rect titleRect = { 500, 300, 200, 50 };
+
+    SDL_Surface* titleMessage = TTF_RenderText_Solid(font, "save level as", { 255, 255, 255 });
+    SDL_Texture* titleBox = SDL_CreateTextureFromSurface(render, titleMessage);
+    SDL_RenderCopy(render, titleBox, NULL, &titleRect);
+
+
+    int textLenght = saveBoxString.length();
+
+    SDL_Rect saveBoxRect = { 500, 500, 12 * textLenght, 50};
+    SDL_SetRenderDrawColor(render, 100, 10, 150, 255);
+    SDL_RenderFillRect(render, &saveBoxRect);
+
+    SDL_Surface* saveBoxMessage = TTF_RenderText_Solid(font, saveBoxString.c_str(), {255, 255, 255});
+    SDL_Texture* saveBox = SDL_CreateTextureFromSurface(render, saveBoxMessage);
+    SDL_RenderCopy(render, saveBox, NULL, &saveBoxRect);
+
+    // Don't forget to free your surface and texture
+    SDL_FreeSurface(saveBoxMessage);
+    SDL_DestroyTexture(saveBox);
+    SDL_FreeSurface(titleMessage);
+    SDL_DestroyTexture(titleBox);
+}
+
+LevelEditor::LevelEditor()
+{   
+    for (size_t i = 0; i < 256; i++)
+    {
+        Block block;
+
+        block.x = i % 16 * (block.w + 10);
+        block.y = i / 16 * (block.h + 10);
+
+        block.health = 1;
+
+        block.updateColor();
+
+        editor_blocks.push_back(block);
+    }
+    
+    button1.x = 200;  //controls the rect's x coordinate 
+    button1.y = 210; // controls the rect's y coordinte
+    button1.w = 400; // controls the width of the rect
+    button1.h = 100;
+
+    message0 = NULL;
+    message1 = NULL;
+    message2 = NULL;
+    message3 = NULL;
+    message4 = NULL;
+    message5 = NULL;
+    message6 = NULL;
+    message7 = NULL;
+    message8 = NULL;
+    message9 = NULL;
+    saveMessage = NULL;
+
+    text0 = nullptr;
+    text1 = nullptr;
+    text2 = nullptr;
+    text3 = nullptr;
+    text4 = nullptr;
+    text5 = nullptr;
+    text6 = nullptr;
+    text7 = nullptr;
+    text8 = nullptr;
+    text9 = nullptr;
+    savetext = nullptr;
 
     text0_rect.x = 10;
     text0_rect.y = screenHeight - 250;
@@ -115,65 +207,6 @@ void LevelEditor::InitTexts()
     save_rect.y = screenHeight - 40;
     save_rect.w = 80;
     save_rect.h = 40;
-}
-
-void LevelEditor::SaveLevel(std::string saveText)
-{
-    std::string editorLevel;
-    for (size_t i = 0; i < 256; i++)
-    {        
-        char c = '0' + editor_blocks[i].health;
-        editorLevel.push_back(c);
-    }
-
-    std::string levelname = "levels/" + saveText + ".txt";
-    std::ofstream myfile;
-    myfile.open(levelname, std::ofstream::out | std::ofstream::trunc);
-    myfile << editorLevel;
-    myfile.close();
-    
-}
-
-void LevelEditor::DrawSaveBox()
-{
-    SDL_Rect titleRect = { 500, 300, 200, 50 };
-
-    SDL_Surface* titleMessage = TTF_RenderText_Solid(font, "save level as:", { 255, 255, 255 });
-    SDL_Texture* titleBox = SDL_CreateTextureFromSurface(render, titleMessage);
-    SDL_RenderCopy(render, titleBox, NULL, &titleRect);
-
-
-    int textLenght = saveBoxString.length();
-
-    SDL_Rect saveBoxRect = { 500, 500, 12 * textLenght, 50};
-    SDL_SetRenderDrawColor(render, 100, 10, 150, 255);
-    SDL_RenderFillRect(render, &saveBoxRect);
-
-    SDL_Surface* saveBoxMessage = TTF_RenderText_Solid(font, saveBoxString.c_str(), {255, 255, 255});
-    SDL_Texture* saveBox = SDL_CreateTextureFromSurface(render, saveBoxMessage);
-    SDL_RenderCopy(render, saveBox, NULL, &saveBoxRect);
-}
-
-LevelEditor::LevelEditor()
-{   
-    for (size_t i = 0; i < 256; i++)
-    {
-        Block block;
-
-        block.x = i % 16 * (block.w + 10);
-        block.y = i / 16 * (block.h + 10);
-
-        block.health = 1;
-
-        block.updateColor();
-
-        editor_blocks.push_back(block);
-    }
-    
-    button1.x = 200;  //controls the rect's x coordinate 
-    button1.y = 210; // controls the rect's y coordinte
-    button1.w = 400; // controls the width of the rect
-    button1.h = 100;
 }
 
 LevelEditor::~LevelEditor()

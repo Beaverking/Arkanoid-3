@@ -62,13 +62,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SDL_MAIN_HANDLED;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Niklas School stuff\cpp\Arkanoid-SDL\Arkanoid\SDL2_mixer\include;C:\Niklas School stuff\cpp\Arkanoid-SDL\Arkanoid\include\SDL;C:\Niklas School stuff\cpp\Arkanoid-SDL\Arkanoid\audio;C:\cppWithEmil\Arkanoid\src\audio;C:\cppWithEmil\Arkanoid\SDL2_mixer\include;C:\cppWithEmil\Arkanoid\include\SDL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)SDL2_mixer\include;$(SolutionDir)include\SDL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Niklas School stuff\cpp\Arkanoid-SDL\Arkanoid\SDL2_mixer\lib\x64;C:\cppWithEmil\Arkanoid\SDL2_mixer\lib\x64;lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)SDL2_mixer\lib\x64;lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

@@ -29,6 +29,8 @@ int main() {
     LoadAudioFiles();
     LoadFont();
 
+    
+
     Menu currentMenu;
     currentMenu = Menu::mainMenu;
 
@@ -132,6 +134,7 @@ int main() {
                     if ((x > levelEditor.button1.x) && (x < levelEditor.button1.x + levelEditor.button1.w) && (y > levelEditor.button1.y) && (y < levelEditor.button1.y + levelEditor.button1.h)) {
                        
                         SDL_StartTextInput();
+                        levelEditor.saveBoxString = "";
                         currentMenu = Menu::saveAs;
                     }
                 }
@@ -175,28 +178,58 @@ int main() {
             player.draw();
             player.update();
 
-            //Ball
-            ball.draw();
+            HitsToNewBall();
 
-            if (atStart) {
-                ball.ballInStart(player.rect);
+            //Balls
+            for (auto& ball : balls) {
+                if (!ball.alive) {
+                    continue;
+                }
+
+                if (atStart) {
+                    ball.ballInStart(player.rect);
+                }
+                else {
+                    ball.move();
+                    ball.checkCollisionPlayer(player.rect);
+                    ball.checkCollisionEdge();
+                }
+                ball.draw();
             }
-            else {
-                ball.move();
-                ball.checkCollisionPlayer(player.rect);
-            }
+
+            bool end = true;
 
             //blocks
             for (size_t i = 0; i < blocks.size(); i++)
             {
                 if (blocks[i].health > 0) {
 
+                    if (blocks[i].health == 4) end = true;
+                    else end = false;
+
                     blocks[i].draw();
-                    if (ball.checkCollisionBlock(&blocks[i])) collidedBlocksIndex.push_back(i);
-                }
+                    for (auto& ball : balls) {
+
+                        if (!ball.alive) {
+                            continue;
+                        }
+
+                        if (ball.checkCollisionBlock(&blocks[i])) {
+                            ball.collidedBlocksIndex.push_back(i);
+                        }
+                    }
+                }                
             }
 
-            ball.collision();
+            if (end) currentMenu = Menu::mainMenu;
+            end = true;
+
+            for (auto& ball : balls) {
+                ball.collision();
+                if (ball.alive) end = false;
+            }
+
+            if (end) currentMenu = Menu::mainMenu;
         }
 
 		SDL_RenderPresent(render);

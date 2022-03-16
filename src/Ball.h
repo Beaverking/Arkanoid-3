@@ -17,9 +17,7 @@ public:
     //Initializes the variables
     Ball();
 
-    //Takes key presses and adjusts the dot's velocity
-    void update();
-
+    
     //Moves the dot and checks collision
     void move();
 
@@ -32,23 +30,28 @@ public:
 
     bool checkCollisionBlock(Block* object);
 
+    void checkCollisionEdge();
+
     void collision();
+
+    std::vector<int> collidedBlocksIndex;
+
+    int id;
+    bool alive;
 
 
 private:
     //The X and Y offsets of the dot
-    int mPosX, mPosY;
+    int posX, posY;
 
     //The velocity of the dot
-    int mVelX, mVelY;
+    int velX, velY;
 
     int curVelX, curVelY;
 
     bool moveRight = true;
     bool moveDown = true;
 
-    std::vector<Block> collidedBlocks;
-
     //Dot's collision box
-    SDL_Rect mCollider;
+    SDL_Rect ballCollider;
 };

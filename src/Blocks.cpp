@@ -13,7 +13,10 @@ void Block::draw()
 
 void Block::removeHealth()
 {
-	if (health <= 3) health--;	
+	if (health <= 3) { 
+		hitsToAddBall++;
+		health--; 
+	}
 }
 
 void Block::updateColor()
@@ -44,6 +47,5 @@ void Block::updateColor()
 		b = 155;
 	}
 }
-
 
 Block::Block() { rect = { x,y,w,h }; }
