@@ -12,6 +12,7 @@ Menu currentMenu;
 std::vector<Block> blocks;
 TTF_Font* titleFont;
 TTF_Font* font;
+TTF_Font* creditFont;
 
 std::vector<Level> levels;
 std::list<Ball> balls;
@@ -108,11 +109,11 @@ void LoadFont()
     if (TTF_Init() == -1)
         std::cout << " Failed to initialize TTF : " << SDL_GetError() << std::endl;
     font = TTF_OpenFont("assets/8BIT.ttf", 72);
-    //font = TTF_OpenFont("audio/2TECH2.ttf", 48);
+    creditFont = TTF_OpenFont("assets/font.ttf", 24);
     //font = TTF_OpenFont("audio/Fuji_Quake_Zone.ttf", 48);
     //font = TTF_OpenFont("audio/NeoTech.ttf", 48);
     titleFont = TTF_OpenFont("assets/NeoTechItalic.ttf", 72);
-    if (font == NULL || titleFont == NULL) {
+    if (font == NULL || titleFont == NULL || creditFont == NULL) {
         std::cout << "font not loaded" << std::endl;
     }
 }

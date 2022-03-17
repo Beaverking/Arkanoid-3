@@ -37,6 +37,7 @@ extern void HitsToNewBall();
 
 extern TTF_Font* titleFont;
 extern TTF_Font* font;
+extern TTF_Font* creditFont;
 
 extern bool atStart;
 extern int hitsToAddBall;

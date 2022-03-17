@@ -12,12 +12,14 @@ void MainMenu::DrawMainMenu()
 	editorMessage = TTF_RenderText_Solid(font, "Level Editor", White);
 	loadMessage = TTF_RenderText_Solid(font, "Load Level", White);
 	exitMessage = TTF_RenderText_Solid(font, "Exit Game", White);
+	creditsMessage = TTF_RenderText_Solid(creditFont, "Programmed by Niklas Högnabba. 2022 @ FutureGames", White);
 
 	title = SDL_CreateTextureFromSurface(render, titleMessage);
 	startText = SDL_CreateTextureFromSurface(render, startMessage);
 	editorText = SDL_CreateTextureFromSurface(render, editorMessage);
 	loadText = SDL_CreateTextureFromSurface(render, loadMessage);
 	exitText = SDL_CreateTextureFromSurface(render, exitMessage);
+	creditsText = SDL_CreateTextureFromSurface(render, creditsMessage);
 
 	SDL_SetRenderDrawColor(render, 0, 40, 20, 255);
 	
@@ -31,6 +33,7 @@ void MainMenu::DrawMainMenu()
 	SDL_RenderCopy(render, editorText, NULL, &editorTextRect);
 	SDL_RenderCopy(render, loadText, NULL, &loadTextRect);
 	SDL_RenderCopy(render, exitText, NULL, &exitTextRect);
+	SDL_RenderCopy(render, creditsText, NULL, &creditsTextRect);
 
 	// Don't forget to free your surface and texture
 	SDL_FreeSurface(titleMessage);
@@ -38,11 +41,13 @@ void MainMenu::DrawMainMenu()
 	SDL_FreeSurface(editorMessage);
 	SDL_FreeSurface(loadMessage);
 	SDL_FreeSurface(exitMessage);
+	SDL_FreeSurface(creditsMessage);
 	SDL_DestroyTexture(title);
 	SDL_DestroyTexture(startText);
 	SDL_DestroyTexture(editorText);
 	SDL_DestroyTexture(loadText);
 	SDL_DestroyTexture(exitText);
+	SDL_DestroyTexture(creditsText);
 }
 
 
@@ -73,6 +78,7 @@ MainMenu::MainMenu()
 	editorText = nullptr;
 	loadText = nullptr;
 	exitText = nullptr;
+	creditsText = nullptr;
 	
 	titleRect.x = 100;
 	titleRect.y = 80;
@@ -98,6 +104,11 @@ MainMenu::MainMenu()
 	exitTextRect.y = 530;
 	exitTextRect.w = 400;
 	exitTextRect.h = 100;
+	
+	creditsTextRect.x = screenWidth - 505;
+	creditsTextRect.y = screenHeight - 45;
+	creditsTextRect.w = 500;
+	creditsTextRect.h = 40;
 
 	TitleColor = {0, 0, 0 };
 	White = { 255, 255, 255 };
@@ -108,6 +119,7 @@ MainMenu::MainMenu()
 	editorMessage = NULL;
 	loadMessage = NULL;
 	exitMessage = NULL;
+	creditsMessage = NULL;
 }
 
 MainMenu::~MainMenu()
