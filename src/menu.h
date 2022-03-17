@@ -4,30 +4,35 @@
 
 struct MainMenu {
 	void DrawMainMenu();
-	void InitTexts();
+	void ColorChanger();
 	
 	SDL_Color White;
 	SDL_Color TitleColor;
 
-	Uint8 red = 0;
-	Uint8 blue = 255;
+	Uint8 color1 = 0;
+	Uint8 color2 = 255;
 	bool change;
 
-	SDL_Rect text01_rect;
-	SDL_Rect text02_rect;
-	SDL_Rect text03_rect;
-	SDL_Rect title_rect;
-	SDL_Texture* text01;
-	SDL_Texture* text02;
-	SDL_Texture* text03;
+	SDL_Rect titleRect;
+	SDL_Rect startTextRect;
+	SDL_Rect editorTextRect;
+	SDL_Rect loadTextRect;
+	SDL_Rect exitTextRect;
+
 	SDL_Texture* title;
+	SDL_Texture* startText;
+	SDL_Texture* editorText;
+	SDL_Texture* loadText;
+	SDL_Texture* exitText;
+
+	SDL_Surface* titleMessage;
 	SDL_Surface* startMessage;
 	SDL_Surface* editorMessage;
-	SDL_Surface* titleMessage;
 	SDL_Surface* loadMessage;
-
+	SDL_Surface* exitMessage;
 
 	MainMenu();
+	~MainMenu();
 };
 
 

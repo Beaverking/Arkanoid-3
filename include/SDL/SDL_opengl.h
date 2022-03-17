@@ -802,13 +802,13 @@ typedef double		GLclampd;	/* double precision float in [0,1] */
 
 GLAPI void GLAPIENTRY glClearIndex( GLfloat c );
 
-GLAPI void GLAPIENTRY glClearColor( GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha );
+GLAPI void GLAPIENTRY glClearColor( GLclampf color1, GLclampf green, GLclampf color2, GLclampf alpha );
 
 GLAPI void GLAPIENTRY glClear( GLbitfield mask );
 
 GLAPI void GLAPIENTRY glIndexMask( GLuint mask );
 
-GLAPI void GLAPIENTRY glColorMask( GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha );
+GLAPI void GLAPIENTRY glColorMask( GLboolean color1, GLboolean green, GLboolean color2, GLboolean alpha );
 
 GLAPI void GLAPIENTRY glAlphaFunc( GLenum func, GLclampf ref );
 
@@ -909,7 +909,7 @@ GLAPI void GLAPIENTRY glDepthRange( GLclampd near_val, GLclampd far_val );
  * Accumulation Buffer
  */
 
-GLAPI void GLAPIENTRY glClearAccum( GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha );
+GLAPI void GLAPIENTRY glClearAccum( GLfloat color1, GLfloat green, GLfloat color2, GLfloat alpha );
 
 GLAPI void GLAPIENTRY glAccum( GLenum op, GLfloat value );
 
@@ -1042,31 +1042,31 @@ GLAPI void GLAPIENTRY glIndexiv( const GLint *c );
 GLAPI void GLAPIENTRY glIndexsv( const GLshort *c );
 GLAPI void GLAPIENTRY glIndexubv( const GLubyte *c );  /* 1.1 */
 
-GLAPI void GLAPIENTRY glColor3b( GLbyte red, GLbyte green, GLbyte blue );
-GLAPI void GLAPIENTRY glColor3d( GLdouble red, GLdouble green, GLdouble blue );
-GLAPI void GLAPIENTRY glColor3f( GLfloat red, GLfloat green, GLfloat blue );
-GLAPI void GLAPIENTRY glColor3i( GLint red, GLint green, GLint blue );
-GLAPI void GLAPIENTRY glColor3s( GLshort red, GLshort green, GLshort blue );
-GLAPI void GLAPIENTRY glColor3ub( GLubyte red, GLubyte green, GLubyte blue );
-GLAPI void GLAPIENTRY glColor3ui( GLuint red, GLuint green, GLuint blue );
-GLAPI void GLAPIENTRY glColor3us( GLushort red, GLushort green, GLushort blue );
+GLAPI void GLAPIENTRY glColor3b( GLbyte color1, GLbyte green, GLbyte color2 );
+GLAPI void GLAPIENTRY glColor3d( GLdouble color1, GLdouble green, GLdouble color2 );
+GLAPI void GLAPIENTRY glColor3f( GLfloat color1, GLfloat green, GLfloat color2 );
+GLAPI void GLAPIENTRY glColor3i( GLint color1, GLint green, GLint color2 );
+GLAPI void GLAPIENTRY glColor3s( GLshort color1, GLshort green, GLshort color2 );
+GLAPI void GLAPIENTRY glColor3ub( GLubyte color1, GLubyte green, GLubyte color2 );
+GLAPI void GLAPIENTRY glColor3ui( GLuint color1, GLuint green, GLuint color2 );
+GLAPI void GLAPIENTRY glColor3us( GLushort color1, GLushort green, GLushort color2 );
 
-GLAPI void GLAPIENTRY glColor4b( GLbyte red, GLbyte green,
-                                   GLbyte blue, GLbyte alpha );
-GLAPI void GLAPIENTRY glColor4d( GLdouble red, GLdouble green,
-                                   GLdouble blue, GLdouble alpha );
-GLAPI void GLAPIENTRY glColor4f( GLfloat red, GLfloat green,
-                                   GLfloat blue, GLfloat alpha );
-GLAPI void GLAPIENTRY glColor4i( GLint red, GLint green,
-                                   GLint blue, GLint alpha );
-GLAPI void GLAPIENTRY glColor4s( GLshort red, GLshort green,
-                                   GLshort blue, GLshort alpha );
-GLAPI void GLAPIENTRY glColor4ub( GLubyte red, GLubyte green,
-                                    GLubyte blue, GLubyte alpha );
-GLAPI void GLAPIENTRY glColor4ui( GLuint red, GLuint green,
-                                    GLuint blue, GLuint alpha );
-GLAPI void GLAPIENTRY glColor4us( GLushort red, GLushort green,
-                                    GLushort blue, GLushort alpha );
+GLAPI void GLAPIENTRY glColor4b( GLbyte color1, GLbyte green,
+                                   GLbyte color2, GLbyte alpha );
+GLAPI void GLAPIENTRY glColor4d( GLdouble color1, GLdouble green,
+                                   GLdouble color2, GLdouble alpha );
+GLAPI void GLAPIENTRY glColor4f( GLfloat color1, GLfloat green,
+                                   GLfloat color2, GLfloat alpha );
+GLAPI void GLAPIENTRY glColor4i( GLint color1, GLint green,
+                                   GLint color2, GLint alpha );
+GLAPI void GLAPIENTRY glColor4s( GLshort color1, GLshort green,
+                                   GLshort color2, GLshort alpha );
+GLAPI void GLAPIENTRY glColor4ub( GLubyte color1, GLubyte green,
+                                    GLubyte color2, GLubyte alpha );
+GLAPI void GLAPIENTRY glColor4ui( GLuint color1, GLuint green,
+                                    GLuint color2, GLuint alpha );
+GLAPI void GLAPIENTRY glColor4us( GLushort color1, GLushort green,
+                                    GLushort color2, GLushort alpha );
 
 
 GLAPI void GLAPIENTRY glColor3bv( const GLbyte *v );
@@ -1687,8 +1687,8 @@ GLAPI void GLAPIENTRY glGetColorTableParameteriv( GLenum target, GLenum pname,
 
 GLAPI void GLAPIENTRY glBlendEquation( GLenum mode );
 
-GLAPI void GLAPIENTRY glBlendColor( GLclampf red, GLclampf green,
-                                    GLclampf blue, GLclampf alpha );
+GLAPI void GLAPIENTRY glBlendColor( GLclampf color1, GLclampf green,
+                                    GLclampf color2, GLclampf alpha );
 
 GLAPI void GLAPIENTRY glHistogram( GLenum target, GLsizei width,
 				   GLenum internalformat, GLboolean sink );

@@ -7,6 +7,7 @@ LevelEditor levelEditor;
 bool atStart;
 
 enum class Menu;
+Menu currentMenu;
 
 std::vector<Block> blocks;
 TTF_Font* titleFont;
@@ -21,21 +22,19 @@ int ballID = 0;
 void ConstructLevel(std::string level) {
 
     blocks.clear();
+    levels.clear();
+    levelEditor.editor_blocks.clear();
 
     std::string levelname = "levels/" + level + ".txt";
-
     std::ifstream t(levelname);
     std::string str;
 
     t.seekg(0, std::ios::end);
     str.reserve(t.tellg());
     t.seekg(0, std::ios::beg);
-    str.assign((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
-    
-    std::cout << str << std::endl;
-    std::cout << str.length() << std::endl;    
+    str.assign((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());    
 
-    for (size_t i = 0; i < 256; i++)
+    for (unsigned int i = 0; i < 256; i++)
     {
         Block block;
 
@@ -55,16 +54,15 @@ void ConstructLevel(std::string level) {
     atStart = true;
     balls.clear();
 
-    std::cout << "size of balls: " << balls.size() << std::endl;
-
     AddBall();
 }
 
 void LoadLevels() {
 
+    levels.clear();
+
     const std::filesystem::path levelsPath{ "levels/" };
-    //std::cout << "directory_iterator:\n";
-    SDL_Color White = { 255, 255, 255 };
+    
     int i = 0;
 
     // Iterate over the `std::filesystem::directory_entry` elements
@@ -94,11 +92,8 @@ void LoadLevels() {
         Level level;
         int wordLenght = s.length();
 
-        level.text_rect = { 30, 30 + (i * 30), 10 * wordLenght, 20 };
-        level.message = TTF_RenderText_Solid(font, s.c_str(), White);
-        level.text = SDL_CreateTextureFromSurface(render, level.message);
         level.levelName = s;
-
+        level.text_rect = { 30, 30 + (i * 30), 10 * wordLenght, 20 };
         levels.push_back(level);
         i++;
     }
@@ -134,7 +129,6 @@ void HitsToNewBall() {
     if (hitsToAddBall == 10) {
         hitsToAddBall = 0;
         AddBall();
-        std::cout << " add ball " << std::endl;
     }
 }
 

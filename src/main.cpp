@@ -24,23 +24,11 @@ int main() {
     atStart = true;
 
     Uint64 prevTicks = SDL_GetPerformanceCounter();
-
     
     LoadAudioFiles();
     LoadFont();
-
     
-
-    Menu currentMenu;
     currentMenu = Menu::mainMenu;
-
-    mainMenu.InitTexts();
-
-    //Set text color as black
-    SDL_Color textColor = { 0, 0, 0, 0xFF };
-
-    //SDL_StartTextInput();
-    
 
     while (running) 
     {
@@ -70,7 +58,12 @@ int main() {
                 int scancode = event.key.keysym.scancode;
 
                 if (scancode == SDL_SCANCODE_ESCAPE) {
-                    running = false;
+                    if (currentMenu == Menu::mainMenu) {
+                        running = false;
+                    }
+                    else {
+                        currentMenu = Menu::mainMenu;
+                    }
                 }
 
                 keys[scancode] = true;
@@ -92,31 +85,33 @@ int main() {
 
             case SDL_KEYUP: {
                 int scancode = event.key.keysym.scancode;
-
                 keys[scancode] = false;
 
                 break; }
-            case SDL_MOUSEBUTTONUP: {
 
+            case SDL_MOUSEBUTTONUP: {
                 int x = event.button.x;
                 int y = event.button.y;
                 if (currentMenu == Menu::mainMenu) {
-                    if ((x > mainMenu.text01_rect.x) && (x < mainMenu.text01_rect.x + mainMenu.text01_rect.w) && (y > mainMenu.text01_rect.y) && (y < mainMenu.text01_rect.y + mainMenu.text01_rect.h))
+                    if ((x > mainMenu.startTextRect.x) && (x < mainMenu.startTextRect.x + mainMenu.startTextRect.w) && (y > mainMenu.startTextRect.y) && (y < mainMenu.startTextRect.y + mainMenu.startTextRect.h))
                     {
                         string level1 = "level1";
                         ConstructLevel(level1);
                         currentMenu = Menu::game;
                     }
-
-                    if ((x > mainMenu.text02_rect.x) && (x < mainMenu.text02_rect.x + mainMenu.text02_rect.w) && (y > mainMenu.text02_rect.y) && (y < mainMenu.text02_rect.y + mainMenu.text02_rect.h))
+                    if ((x > mainMenu.editorTextRect.x) && (x < mainMenu.editorTextRect.x + mainMenu.editorTextRect.w) && (y > mainMenu.editorTextRect.y) && (y < mainMenu.editorTextRect.y + mainMenu.editorTextRect.h))
                     {
-                        levelEditor.InitTexts();
+                        levelEditor.ConstructLevelEditorBlocks();
                         currentMenu = Menu::levelEditor;
                     }
-                    if ((x > mainMenu.text03_rect.x) && (x < mainMenu.text03_rect.x + mainMenu.text03_rect.w) && (y > mainMenu.text03_rect.y) && (y < mainMenu.text03_rect.y + mainMenu.text03_rect.h))
+                    if ((x > mainMenu.loadTextRect.x) && (x < mainMenu.loadTextRect.x + mainMenu.loadTextRect.w) && (y > mainMenu.loadTextRect.y) && (y < mainMenu.loadTextRect.y + mainMenu.loadTextRect.h))
                     {
                         LoadLevels();
                         currentMenu = Menu::loadLevel;
+                    }
+                    if ((x > mainMenu.exitTextRect.x) && (x < mainMenu.exitTextRect.x + mainMenu.exitTextRect.w) && (y > mainMenu.exitTextRect.y) && (y < mainMenu.exitTextRect.y + mainMenu.exitTextRect.h))
+                    {
+                        running = false;
                     }
                 }               
 
@@ -138,6 +133,7 @@ int main() {
                         currentMenu = Menu::saveAs;
                     }
                 }
+
                 if (currentMenu == Menu::loadLevel) {
                     for (size_t i = 0; i < levels.size(); i++)
                     {
@@ -150,13 +146,18 @@ int main() {
                 }
                 break; }
             }
-        }
+		}
 
-        SDL_SetRenderDrawColor(render, 25, 25, 150, 255);
-        SDL_RenderClear(render);
+		if (currentMenu != Menu::mainMenu) {
+			SDL_SetRenderDrawColor(render, 25, 25, 150, 255);
+			SDL_RenderClear(render);
+		}
 
-        if (currentMenu == Menu::mainMenu) {
-            mainMenu.DrawMainMenu();
+		if (currentMenu == Menu::mainMenu) {
+            mainMenu.ColorChanger();
+			SDL_SetRenderDrawColor(render, mainMenu.color2, 25, mainMenu.color1, 255);
+			SDL_RenderClear(render);
+			mainMenu.DrawMainMenu();
         }
         else if(currentMenu == Menu::saveAs) {
             levelEditor.DrawSaveBox();

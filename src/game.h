@@ -46,6 +46,8 @@ extern enum class Menu {
 	mainMenu, levelEditor, loadLevel, saveAs, game
 };
 
+extern Menu currentMenu;
+
 extern std::vector<Level> levels;
 
 

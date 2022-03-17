@@ -49,3 +49,10 @@ void Block::updateColor()
 }
 
 Block::Block() { rect = { x,y,w,h }; }
+
+Block::~Block()
+{
+	//std::cout << "Object is being deleted" << std::endl;
+}
+
+

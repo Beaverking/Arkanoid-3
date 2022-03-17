@@ -30,6 +30,10 @@ Ball::Ball()
     //std::vector<Block> &collidedBlocks;
 }
 
+Ball::~Ball()
+{
+}
+
 void Ball::move()
 {   
     velX = delta_time * curVelX;

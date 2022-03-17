@@ -20,7 +20,7 @@ public:
 	void updateColor();
 
 	Block();
-
+	~Block();
 
 	int x = 0;
 	int y = 0;

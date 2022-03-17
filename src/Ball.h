@@ -16,6 +16,7 @@ public:
 
     //Initializes the variables
     Ball();
+    ~Ball();
 
     
     //Moves the dot and checks collision

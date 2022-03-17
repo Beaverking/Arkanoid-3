@@ -7,62 +7,41 @@
 #include "engine.h"
 #include "game.h"
 
-// This script SUCKS, just you wait until you read it.
-
-
 void LevelEditor::DrawLevelEditor()
-{
+{  
+    change = { 0, 255, 0 };
+    surfaceMessages[0] = TTF_RenderText_Solid(font, "Green   ", change);
+    surfaceMessages[1] = TTF_RenderText_Solid(font, "1 hp    ", white);
+    change = { 255, 228, 0 };
+    surfaceMessages[2] = TTF_RenderText_Solid(font, "Yellow  ", change);
+    surfaceMessages[3] = TTF_RenderText_Solid(font, "2 hp    ", white);
+    change = { 255, 5, 0 };
+    surfaceMessages[4] = TTF_RenderText_Solid(font, "Red     ", change);
+    surfaceMessages[5] = TTF_RenderText_Solid(font, "3 hp    ", white);
+    change = { 155, 155, 155 };
+    surfaceMessages[6] = TTF_RenderText_Solid(font, "Gray    ", change);
+    surfaceMessages[7] = TTF_RenderText_Solid(font, "stone   ", white);
+    change = { 0, 0, 0 };
+    surfaceMessages[8] = TTF_RenderText_Solid(font, "Black   ", change);
+    surfaceMessages[9] = TTF_RenderText_Solid(font, "no block", white);
+
+    for (unsigned int i = 0; i < 10; i++)
+    {
+        textTextures[i] = SDL_CreateTextureFromSurface(render, surfaceMessages[i]);
+        SDL_RenderCopy(render, textTextures[i], NULL, &textRects[i]);
+        SDL_FreeSurface(surfaceMessages[i]);
+        SDL_DestroyTexture(textTextures[i]);
+    }
+
     SDL_SetRenderDrawColor(render, 200, 24, 100, 255);
     button1 = { screenWidth - 40, screenHeight - 30, 30, 20 };
     SDL_RenderFillRect(render, &button1);
 
-    SDL_RenderCopy(render, text0, NULL, &text0_rect);
-    SDL_RenderCopy(render, text1, NULL, &text1_rect);
-    SDL_RenderCopy(render, text2, NULL, &text2_rect);
-    SDL_RenderCopy(render, text3, NULL, &text3_rect);
-    SDL_RenderCopy(render, text4, NULL, &text4_rect);
-    SDL_RenderCopy(render, text5, NULL, &text5_rect);
-    SDL_RenderCopy(render, text6, NULL, &text6_rect);
-    SDL_RenderCopy(render, text7, NULL, &text7_rect);
-    SDL_RenderCopy(render, text8, NULL, &text8_rect);
-    SDL_RenderCopy(render, text9, NULL, &text9_rect);
-    SDL_RenderCopy(render, savetext, NULL, &save_rect);
-}
-
-void LevelEditor::InitTexts()
-{
-    std::cout << "create level editor texts" << std::endl;
-
-    SDL_Color white = { 255, 255, 255 };
-    SDL_Color change = { 0, 255, 0 };
-
-    message0 = TTF_RenderText_Solid(font, "Green   ", change);
-    message1 = TTF_RenderText_Solid(font, "1 hp    ", white);
-    change = { 255, 228, 0 };
-    message2 = TTF_RenderText_Solid(font, "Yellow  ", change);
-    message3 = TTF_RenderText_Solid(font, "2 hp    ", white);
-    change = { 255, 5, 0 };
-    message4 = TTF_RenderText_Solid(font, "Red     ", change);
-    message5 = TTF_RenderText_Solid(font, "3 hp    ", white);
-    change = { 155, 155, 155 };
-    message6 = TTF_RenderText_Solid(font, "Gray    ", change);
-    message7 = TTF_RenderText_Solid(font, "stone   ", white);
-    change = { 0, 0, 0 };
-    message8 = TTF_RenderText_Solid(font, "Black   ", change);
-    message9 = TTF_RenderText_Solid(font, "no block", white);
     saveMessage = TTF_RenderText_Solid(font, "Save as", white);
-
-    text0 = SDL_CreateTextureFromSurface(render, message0);
-    text1 = SDL_CreateTextureFromSurface(render, message1);
-    text2 = SDL_CreateTextureFromSurface(render, message2);
-    text3 = SDL_CreateTextureFromSurface(render, message3);
-    text4 = SDL_CreateTextureFromSurface(render, message4);
-    text5 = SDL_CreateTextureFromSurface(render, message5);
-    text6 = SDL_CreateTextureFromSurface(render, message6);
-    text7 = SDL_CreateTextureFromSurface(render, message7);
-    text8 = SDL_CreateTextureFromSurface(render, message8);
-    text9 = SDL_CreateTextureFromSurface(render, message9);
-    savetext = SDL_CreateTextureFromSurface(render, saveMessage);    
+    savetext = SDL_CreateTextureFromSurface(render, saveMessage);
+    SDL_RenderCopy(render, savetext, NULL, &save_rect);
+    SDL_FreeSurface(saveMessage);
+    SDL_DestroyTexture(savetext);
 }
 
 void LevelEditor::SaveLevel(std::string saveText)
@@ -90,8 +69,7 @@ void LevelEditor::DrawSaveBox()
     SDL_Texture* titleBox = SDL_CreateTextureFromSurface(render, titleMessage);
     SDL_RenderCopy(render, titleBox, NULL, &titleRect);
 
-
-    int textLenght = saveBoxString.length();
+    int textLenght = (int)saveBoxString.length();
 
     SDL_Rect saveBoxRect = { 500, 500, 12 * textLenght, 50};
     SDL_SetRenderDrawColor(render, 100, 10, 150, 255);
@@ -108,9 +86,12 @@ void LevelEditor::DrawSaveBox()
     SDL_DestroyTexture(titleBox);
 }
 
-LevelEditor::LevelEditor()
-{   
-    for (size_t i = 0; i < 256; i++)
+void LevelEditor::ConstructLevelEditorBlocks()
+{
+    editor_blocks.clear();
+    editor_blocks.reserve(256);
+
+    for (unsigned int i = 0; i < 256; i++)
     {
         Block block;
 
@@ -123,85 +104,33 @@ LevelEditor::LevelEditor()
 
         editor_blocks.push_back(block);
     }
-    
-    button1.x = 200;  //controls the rect's x coordinate 
-    button1.y = 210; // controls the rect's y coordinte
-    button1.w = 400; // controls the width of the rect
+}
+
+LevelEditor::LevelEditor()
+{   
+    for (unsigned int i = 0; i < 10; i++)
+    {
+        if (i % 2 == 0) {
+            textRects[i].x = 10;
+            textRects[i].y = screenHeight - 250 + (i * 25);
+            textRects[i].w = 80;
+            textRects[i].h = 40;
+        }
+        else {
+            textRects[i].x = 90;
+            textRects[i].y = textRects[i - 1].y;
+            textRects[i].w = 80;
+            textRects[i].h = 40;
+        }
+    }
+
+    button1.x = 200;
+    button1.y = 210;
+    button1.w = 400;
     button1.h = 100;
 
-    message0 = NULL;
-    message1 = NULL;
-    message2 = NULL;
-    message3 = NULL;
-    message4 = NULL;
-    message5 = NULL;
-    message6 = NULL;
-    message7 = NULL;
-    message8 = NULL;
-    message9 = NULL;
     saveMessage = NULL;
-
-    text0 = nullptr;
-    text1 = nullptr;
-    text2 = nullptr;
-    text3 = nullptr;
-    text4 = nullptr;
-    text5 = nullptr;
-    text6 = nullptr;
-    text7 = nullptr;
-    text8 = nullptr;
-    text9 = nullptr;
     savetext = nullptr;
-
-    text0_rect.x = 10;
-    text0_rect.y = screenHeight - 250;
-    text0_rect.w = 80;
-    text0_rect.h = 40;
-
-    text1_rect.x = 90;
-    text1_rect.y = screenHeight - 250;
-    text1_rect.w = 80;
-    text1_rect.h = 40;
-
-    text2_rect.x = 10;
-    text2_rect.y = screenHeight - 200;
-    text2_rect.w = 80;
-    text2_rect.h = 40;
-
-    text3_rect.x = 90;
-    text3_rect.y = screenHeight - 200;
-    text3_rect.w = 80;
-    text3_rect.h = 40;
-
-    text4_rect.x = 10;
-    text4_rect.y = screenHeight - 150;
-    text4_rect.w = 80;
-    text4_rect.h = 40;
-
-    text5_rect.x = 90;
-    text5_rect.y = screenHeight - 150;
-    text5_rect.w = 80;
-    text5_rect.h = 40;
-
-    text6_rect.x = 10;
-    text6_rect.y = screenHeight - 100;
-    text6_rect.w = 80;
-    text6_rect.h = 40;
-
-    text7_rect.x = 90;
-    text7_rect.y = screenHeight - 100;
-    text7_rect.w = 80;
-    text7_rect.h = 40;
-
-    text8_rect.x = 10;
-    text8_rect.y = screenHeight - 50;
-    text8_rect.w = 80;
-    text8_rect.h = 40;
-
-    text9_rect.x = 90;
-    text9_rect.y = screenHeight - 50;
-    text9_rect.w = 80;
-    text9_rect.h = 40;
 
     save_rect.x = screenWidth - 140;
     save_rect.y = screenHeight - 40;
@@ -211,9 +140,6 @@ LevelEditor::LevelEditor()
 
 LevelEditor::~LevelEditor()
 {
-    editor_blocks.clear();
-    SDL_FreeSurface(message0);
-    SDL_DestroyTexture(text0);
 }
 
 

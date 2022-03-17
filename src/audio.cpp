@@ -22,7 +22,8 @@ void LoadAudioFiles()
     {
         printf("Failed to load music file! SDL_mixer Error: %s\n", Mix_GetError());
     }
-    //Mix_PlayMusic(music, -1);
+    Mix_PlayMusic(music, -1);
+    Mix_VolumeMusic(64);
 
 }
 

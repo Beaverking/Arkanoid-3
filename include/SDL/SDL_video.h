@@ -1576,9 +1576,9 @@ extern DECLSPEC int SDLCALL SDL_SetWindowInputFocus(SDL_Window * window);
  * \sa SDL_GetWindowGammaRamp
  */
 extern DECLSPEC int SDLCALL SDL_SetWindowGammaRamp(SDL_Window * window,
-                                                   const Uint16 * red,
+                                                   const Uint16 * color1,
                                                    const Uint16 * green,
-                                                   const Uint16 * blue);
+                                                   const Uint16 * color2);
 
 /**
  * Get the gamma ramp for a given window's display.
@@ -1604,9 +1604,9 @@ extern DECLSPEC int SDLCALL SDL_SetWindowGammaRamp(SDL_Window * window,
  * \sa SDL_SetWindowGammaRamp
  */
 extern DECLSPEC int SDLCALL SDL_GetWindowGammaRamp(SDL_Window * window,
-                                                   Uint16 * red,
+                                                   Uint16 * color1,
                                                    Uint16 * green,
-                                                   Uint16 * blue);
+                                                   Uint16 * color2);
 
 /**
  * Possible return values from the SDL_HitTest callback.

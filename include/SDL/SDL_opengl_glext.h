@@ -379,21 +379,21 @@ typedef void (APIENTRYP PFNGLFOGCOORDFVPROC) (const GLfloat *coord);
 typedef void (APIENTRYP PFNGLFOGCOORDDPROC) (GLdouble coord);
 typedef void (APIENTRYP PFNGLFOGCOORDDVPROC) (const GLdouble *coord);
 typedef void (APIENTRYP PFNGLFOGCOORDPOINTERPROC) (GLenum type, GLsizei stride, const void *pointer);
-typedef void (APIENTRYP PFNGLSECONDARYCOLOR3BPROC) (GLbyte red, GLbyte green, GLbyte blue);
+typedef void (APIENTRYP PFNGLSECONDARYCOLOR3BPROC) (GLbyte color1, GLbyte green, GLbyte color2);
 typedef void (APIENTRYP PFNGLSECONDARYCOLOR3BVPROC) (const GLbyte *v);
-typedef void (APIENTRYP PFNGLSECONDARYCOLOR3DPROC) (GLdouble red, GLdouble green, GLdouble blue);
+typedef void (APIENTRYP PFNGLSECONDARYCOLOR3DPROC) (GLdouble color1, GLdouble green, GLdouble color2);
 typedef void (APIENTRYP PFNGLSECONDARYCOLOR3DVPROC) (const GLdouble *v);
-typedef void (APIENTRYP PFNGLSECONDARYCOLOR3FPROC) (GLfloat red, GLfloat green, GLfloat blue);
+typedef void (APIENTRYP PFNGLSECONDARYCOLOR3FPROC) (GLfloat color1, GLfloat green, GLfloat color2);
 typedef void (APIENTRYP PFNGLSECONDARYCOLOR3FVPROC) (const GLfloat *v);
-typedef void (APIENTRYP PFNGLSECONDARYCOLOR3IPROC) (GLint red, GLint green, GLint blue);
+typedef void (APIENTRYP PFNGLSECONDARYCOLOR3IPROC) (GLint color1, GLint green, GLint color2);
 typedef void (APIENTRYP PFNGLSECONDARYCOLOR3IVPROC) (const GLint *v);
-typedef void (APIENTRYP PFNGLSECONDARYCOLOR3SPROC) (GLshort red, GLshort green, GLshort blue);
+typedef void (APIENTRYP PFNGLSECONDARYCOLOR3SPROC) (GLshort color1, GLshort green, GLshort color2);
 typedef void (APIENTRYP PFNGLSECONDARYCOLOR3SVPROC) (const GLshort *v);
-typedef void (APIENTRYP PFNGLSECONDARYCOLOR3UBPROC) (GLubyte red, GLubyte green, GLubyte blue);
+typedef void (APIENTRYP PFNGLSECONDARYCOLOR3UBPROC) (GLubyte color1, GLubyte green, GLubyte color2);
 typedef void (APIENTRYP PFNGLSECONDARYCOLOR3UBVPROC) (const GLubyte *v);
-typedef void (APIENTRYP PFNGLSECONDARYCOLOR3UIPROC) (GLuint red, GLuint green, GLuint blue);
+typedef void (APIENTRYP PFNGLSECONDARYCOLOR3UIPROC) (GLuint color1, GLuint green, GLuint color2);
 typedef void (APIENTRYP PFNGLSECONDARYCOLOR3UIVPROC) (const GLuint *v);
-typedef void (APIENTRYP PFNGLSECONDARYCOLOR3USPROC) (GLushort red, GLushort green, GLushort blue);
+typedef void (APIENTRYP PFNGLSECONDARYCOLOR3USPROC) (GLushort color1, GLushort green, GLushort color2);
 typedef void (APIENTRYP PFNGLSECONDARYCOLOR3USVPROC) (const GLushort *v);
 typedef void (APIENTRYP PFNGLSECONDARYCOLORPOINTERPROC) (GLint size, GLenum type, GLsizei stride, const void *pointer);
 typedef void (APIENTRYP PFNGLWINDOWPOS2DPROC) (GLdouble x, GLdouble y);
@@ -412,7 +412,7 @@ typedef void (APIENTRYP PFNGLWINDOWPOS3IPROC) (GLint x, GLint y, GLint z);
 typedef void (APIENTRYP PFNGLWINDOWPOS3IVPROC) (const GLint *v);
 typedef void (APIENTRYP PFNGLWINDOWPOS3SPROC) (GLshort x, GLshort y, GLshort z);
 typedef void (APIENTRYP PFNGLWINDOWPOS3SVPROC) (const GLshort *v);
-typedef void (APIENTRYP PFNGLBLENDCOLORPROC) (GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
+typedef void (APIENTRYP PFNGLBLENDCOLORPROC) (GLfloat color1, GLfloat green, GLfloat color2, GLfloat alpha);
 typedef void (APIENTRYP PFNGLBLENDEQUATIONPROC) (GLenum mode);
 #ifdef GL_GLEXT_PROTOTYPES
 GLAPI void APIENTRY glBlendFuncSeparate (GLenum sfactorRGB, GLenum dfactorRGB, GLenum sfactorAlpha, GLenum dfactorAlpha);
@@ -4498,10 +4498,10 @@ GLAPI void APIENTRY glVertex4bvOES (const GLbyte *coords);
 typedef GLint GLfixed;
 #define GL_FIXED_OES                      0x140C
 typedef void (APIENTRYP PFNGLALPHAFUNCXOESPROC) (GLenum func, GLfixed ref);
-typedef void (APIENTRYP PFNGLCLEARCOLORXOESPROC) (GLfixed red, GLfixed green, GLfixed blue, GLfixed alpha);
+typedef void (APIENTRYP PFNGLCLEARCOLORXOESPROC) (GLfixed color1, GLfixed green, GLfixed color2, GLfixed alpha);
 typedef void (APIENTRYP PFNGLCLEARDEPTHXOESPROC) (GLfixed depth);
 typedef void (APIENTRYP PFNGLCLIPPLANEXOESPROC) (GLenum plane, const GLfixed *equation);
-typedef void (APIENTRYP PFNGLCOLOR4XOESPROC) (GLfixed red, GLfixed green, GLfixed blue, GLfixed alpha);
+typedef void (APIENTRYP PFNGLCOLOR4XOESPROC) (GLfixed color1, GLfixed green, GLfixed color2, GLfixed alpha);
 typedef void (APIENTRYP PFNGLDEPTHRANGEXOESPROC) (GLfixed n, GLfixed f);
 typedef void (APIENTRYP PFNGLFOGXOESPROC) (GLenum pname, GLfixed param);
 typedef void (APIENTRYP PFNGLFOGXVOESPROC) (GLenum pname, const GLfixed *param);
@@ -4535,9 +4535,9 @@ typedef void (APIENTRYP PFNGLTEXPARAMETERXVOESPROC) (GLenum target, GLenum pname
 typedef void (APIENTRYP PFNGLTRANSLATEXOESPROC) (GLfixed x, GLfixed y, GLfixed z);
 typedef void (APIENTRYP PFNGLACCUMXOESPROC) (GLenum op, GLfixed value);
 typedef void (APIENTRYP PFNGLBITMAPXOESPROC) (GLsizei width, GLsizei height, GLfixed xorig, GLfixed yorig, GLfixed xmove, GLfixed ymove, const GLubyte *bitmap);
-typedef void (APIENTRYP PFNGLBLENDCOLORXOESPROC) (GLfixed red, GLfixed green, GLfixed blue, GLfixed alpha);
-typedef void (APIENTRYP PFNGLCLEARACCUMXOESPROC) (GLfixed red, GLfixed green, GLfixed blue, GLfixed alpha);
-typedef void (APIENTRYP PFNGLCOLOR3XOESPROC) (GLfixed red, GLfixed green, GLfixed blue);
+typedef void (APIENTRYP PFNGLBLENDCOLORXOESPROC) (GLfixed color1, GLfixed green, GLfixed color2, GLfixed alpha);
+typedef void (APIENTRYP PFNGLCLEARACCUMXOESPROC) (GLfixed color1, GLfixed green, GLfixed color2, GLfixed alpha);
+typedef void (APIENTRYP PFNGLCOLOR3XOESPROC) (GLfixed color1, GLfixed green, GLfixed color2);
 typedef void (APIENTRYP PFNGLCOLOR3XVOESPROC) (const GLfixed *components);
 typedef void (APIENTRYP PFNGLCOLOR4XVOESPROC) (const GLfixed *components);
 typedef void (APIENTRYP PFNGLCONVOLUTIONPARAMETERXOESPROC) (GLenum target, GLenum pname, GLfixed param);
@@ -5819,7 +5819,7 @@ GLAPI GLintptr APIENTRY glGetUniformOffsetEXT (GLuint program, GLint location);
 #define GL_CONSTANT_ALPHA_EXT             0x8003
 #define GL_ONE_MINUS_CONSTANT_ALPHA_EXT   0x8004
 #define GL_BLEND_COLOR_EXT                0x8005
-typedef void (APIENTRYP PFNGLBLENDCOLOREXTPROC) (GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
+typedef void (APIENTRYP PFNGLBLENDCOLOREXTPROC) (GLfloat color1, GLfloat green, GLfloat color2, GLfloat alpha);
 #ifdef GL_GLEXT_PROTOTYPES
 GLAPI void APIENTRY glBlendColorEXT (GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
 #endif
@@ -7153,21 +7153,21 @@ GLAPI void APIENTRY glProvokingVertexEXT (GLenum mode);
 #define GL_SECONDARY_COLOR_ARRAY_STRIDE_EXT 0x845C
 #define GL_SECONDARY_COLOR_ARRAY_POINTER_EXT 0x845D
 #define GL_SECONDARY_COLOR_ARRAY_EXT      0x845E
-typedef void (APIENTRYP PFNGLSECONDARYCOLOR3BEXTPROC) (GLbyte red, GLbyte green, GLbyte blue);
+typedef void (APIENTRYP PFNGLSECONDARYCOLOR3BEXTPROC) (GLbyte color1, GLbyte green, GLbyte color2);
 typedef void (APIENTRYP PFNGLSECONDARYCOLOR3BVEXTPROC) (const GLbyte *v);
-typedef void (APIENTRYP PFNGLSECONDARYCOLOR3DEXTPROC) (GLdouble red, GLdouble green, GLdouble blue);
+typedef void (APIENTRYP PFNGLSECONDARYCOLOR3DEXTPROC) (GLdouble color1, GLdouble green, GLdouble color2);
 typedef void (APIENTRYP PFNGLSECONDARYCOLOR3DVEXTPROC) (const GLdouble *v);
-typedef void (APIENTRYP PFNGLSECONDARYCOLOR3FEXTPROC) (GLfloat red, GLfloat green, GLfloat blue);
+typedef void (APIENTRYP PFNGLSECONDARYCOLOR3FEXTPROC) (GLfloat color1, GLfloat green, GLfloat color2);
 typedef void (APIENTRYP PFNGLSECONDARYCOLOR3FVEXTPROC) (const GLfloat *v);
-typedef void (APIENTRYP PFNGLSECONDARYCOLOR3IEXTPROC) (GLint red, GLint green, GLint blue);
+typedef void (APIENTRYP PFNGLSECONDARYCOLOR3IEXTPROC) (GLint color1, GLint green, GLint color2);
 typedef void (APIENTRYP PFNGLSECONDARYCOLOR3IVEXTPROC) (const GLint *v);
-typedef void (APIENTRYP PFNGLSECONDARYCOLOR3SEXTPROC) (GLshort red, GLshort green, GLshort blue);
+typedef void (APIENTRYP PFNGLSECONDARYCOLOR3SEXTPROC) (GLshort color1, GLshort green, GLshort color2);
 typedef void (APIENTRYP PFNGLSECONDARYCOLOR3SVEXTPROC) (const GLshort *v);
-typedef void (APIENTRYP PFNGLSECONDARYCOLOR3UBEXTPROC) (GLubyte red, GLubyte green, GLubyte blue);
+typedef void (APIENTRYP PFNGLSECONDARYCOLOR3UBEXTPROC) (GLubyte color1, GLubyte green, GLubyte color2);
 typedef void (APIENTRYP PFNGLSECONDARYCOLOR3UBVEXTPROC) (const GLubyte *v);
-typedef void (APIENTRYP PFNGLSECONDARYCOLOR3UIEXTPROC) (GLuint red, GLuint green, GLuint blue);
+typedef void (APIENTRYP PFNGLSECONDARYCOLOR3UIEXTPROC) (GLuint color1, GLuint green, GLuint color2);
 typedef void (APIENTRYP PFNGLSECONDARYCOLOR3UIVEXTPROC) (const GLuint *v);
-typedef void (APIENTRYP PFNGLSECONDARYCOLOR3USEXTPROC) (GLushort red, GLushort green, GLushort blue);
+typedef void (APIENTRYP PFNGLSECONDARYCOLOR3USEXTPROC) (GLushort color1, GLushort green, GLushort color2);
 typedef void (APIENTRYP PFNGLSECONDARYCOLOR3USVEXTPROC) (const GLushort *v);
 typedef void (APIENTRYP PFNGLSECONDARYCOLORPOINTEREXTPROC) (GLint size, GLenum type, GLsizei stride, const void *pointer);
 #ifdef GL_GLEXT_PROTOTYPES
@@ -7554,8 +7554,8 @@ typedef void (APIENTRYP PFNGLTEXPARAMETERIIVEXTPROC) (GLenum target, GLenum pnam
 typedef void (APIENTRYP PFNGLTEXPARAMETERIUIVEXTPROC) (GLenum target, GLenum pname, const GLuint *params);
 typedef void (APIENTRYP PFNGLGETTEXPARAMETERIIVEXTPROC) (GLenum target, GLenum pname, GLint *params);
 typedef void (APIENTRYP PFNGLGETTEXPARAMETERIUIVEXTPROC) (GLenum target, GLenum pname, GLuint *params);
-typedef void (APIENTRYP PFNGLCLEARCOLORIIEXTPROC) (GLint red, GLint green, GLint blue, GLint alpha);
-typedef void (APIENTRYP PFNGLCLEARCOLORIUIEXTPROC) (GLuint red, GLuint green, GLuint blue, GLuint alpha);
+typedef void (APIENTRYP PFNGLCLEARCOLORIIEXTPROC) (GLint color1, GLint green, GLint color2, GLint alpha);
+typedef void (APIENTRYP PFNGLCLEARCOLORIUIEXTPROC) (GLuint color1, GLuint green, GLuint color2, GLuint alpha);
 #ifdef GL_GLEXT_PROTOTYPES
 GLAPI void APIENTRY glTexParameterIivEXT (GLenum target, GLenum pname, const GLint *params);
 GLAPI void APIENTRY glTexParameterIuivEXT (GLenum target, GLenum pname, const GLuint *params);
@@ -8866,9 +8866,9 @@ typedef void (APIENTRYP PFNGLVERTEX4HNVPROC) (GLhalfNV x, GLhalfNV y, GLhalfNV z
 typedef void (APIENTRYP PFNGLVERTEX4HVNVPROC) (const GLhalfNV *v);
 typedef void (APIENTRYP PFNGLNORMAL3HNVPROC) (GLhalfNV nx, GLhalfNV ny, GLhalfNV nz);
 typedef void (APIENTRYP PFNGLNORMAL3HVNVPROC) (const GLhalfNV *v);
-typedef void (APIENTRYP PFNGLCOLOR3HNVPROC) (GLhalfNV red, GLhalfNV green, GLhalfNV blue);
+typedef void (APIENTRYP PFNGLCOLOR3HNVPROC) (GLhalfNV color1, GLhalfNV green, GLhalfNV color2);
 typedef void (APIENTRYP PFNGLCOLOR3HVNVPROC) (const GLhalfNV *v);
-typedef void (APIENTRYP PFNGLCOLOR4HNVPROC) (GLhalfNV red, GLhalfNV green, GLhalfNV blue, GLhalfNV alpha);
+typedef void (APIENTRYP PFNGLCOLOR4HNVPROC) (GLhalfNV color1, GLhalfNV green, GLhalfNV color2, GLhalfNV alpha);
 typedef void (APIENTRYP PFNGLCOLOR4HVNVPROC) (const GLhalfNV *v);
 typedef void (APIENTRYP PFNGLTEXCOORD1HNVPROC) (GLhalfNV s);
 typedef void (APIENTRYP PFNGLTEXCOORD1HVNVPROC) (const GLhalfNV *v);
@@ -8888,7 +8888,7 @@ typedef void (APIENTRYP PFNGLMULTITEXCOORD4HNVPROC) (GLenum target, GLhalfNV s, 
 typedef void (APIENTRYP PFNGLMULTITEXCOORD4HVNVPROC) (GLenum target, const GLhalfNV *v);
 typedef void (APIENTRYP PFNGLFOGCOORDHNVPROC) (GLhalfNV fog);
 typedef void (APIENTRYP PFNGLFOGCOORDHVNVPROC) (const GLhalfNV *fog);
-typedef void (APIENTRYP PFNGLSECONDARYCOLOR3HNVPROC) (GLhalfNV red, GLhalfNV green, GLhalfNV blue);
+typedef void (APIENTRYP PFNGLSECONDARYCOLOR3HNVPROC) (GLhalfNV color1, GLhalfNV green, GLhalfNV color2);
 typedef void (APIENTRYP PFNGLSECONDARYCOLOR3HVNVPROC) (const GLhalfNV *v);
 typedef void (APIENTRYP PFNGLVERTEXWEIGHTHNVPROC) (GLhalfNV weight);
 typedef void (APIENTRYP PFNGLVERTEXWEIGHTHVNVPROC) (const GLhalfNV *weight);
@@ -10478,7 +10478,7 @@ GLAPI void APIENTRY glTexSubImage4DSGIS (GLenum target, GLint level, GLint xoffs
 #ifndef GL_SGIS_texture_color_mask
 #define GL_SGIS_texture_color_mask 1
 #define GL_TEXTURE_COLOR_WRITEMASK_SGIS   0x81EF
-typedef void (APIENTRYP PFNGLTEXTURECOLORMASKSGISPROC) (GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha);
+typedef void (APIENTRYP PFNGLTEXTURECOLORMASKSGISPROC) (GLboolean color1, GLboolean green, GLboolean color2, GLboolean alpha);
 #ifdef GL_GLEXT_PROTOTYPES
 GLAPI void APIENTRY glTextureColorMaskSGIS (GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha);
 #endif

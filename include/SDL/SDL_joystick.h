@@ -899,7 +899,7 @@ extern DECLSPEC SDL_bool SDLCALL SDL_JoystickHasRumbleTriggers(SDL_Joystick *joy
  *
  * \since This function is available since SDL 2.0.14.
  */
-extern DECLSPEC int SDLCALL SDL_JoystickSetLED(SDL_Joystick *joystick, Uint8 red, Uint8 green, Uint8 blue);
+extern DECLSPEC int SDLCALL SDL_JoystickSetLED(SDL_Joystick *joystick, Uint8 color1, Uint8 green, Uint8 color2);
 
 /**
  * Send a joystick specific effect packet
