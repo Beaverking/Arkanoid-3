@@ -202,17 +202,17 @@ int main() {
                 ball.draw();
             }
 
-            bool end = true;
+            bool levelDone = true;
 
             //blocks
             for (size_t i = 0; i < blocks.size(); i++)
             {
                 if (blocks[i].health > 0) {
-
-                    if (blocks[i].health == 4) end = true;
-                    else end = false;
-
+                    
                     blocks[i].draw();
+
+                    if(blocks[i].health != 4) levelDone = false;
+
                     for (auto& ball : balls) {
 
                         if (!ball.alive) {
@@ -226,8 +226,8 @@ int main() {
                 }                
             }
 
-            if (end) currentMenu = Menu::mainMenu;
-            end = true;
+            if (levelDone) currentMenu = Menu::mainMenu;
+            bool end = true;
 
             for (auto& ball : balls) {
                 ball.collision();
