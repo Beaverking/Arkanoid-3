@@ -31,9 +31,9 @@ extern void ConstructLevel(std::string level);
 extern void LoadAudio();
 void LoadFont();
 void LoadLevels();
-
 void AddBall();
 extern void HitsToNewBall();
+bool InsideRect(SDL_Rect rect, int mouseX, int mouseY);
 
 extern TTF_Font* titleFont;
 extern TTF_Font* font;

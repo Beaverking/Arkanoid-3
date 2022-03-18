@@ -92,24 +92,25 @@ int main() {
             case SDL_MOUSEBUTTONUP: {
                 int x = event.button.x;
                 int y = event.button.y;
+
                 if (currentMenu == Menu::mainMenu) {
-                    if ((x > mainMenu.startTextRect.x) && (x < mainMenu.startTextRect.x + mainMenu.startTextRect.w) && (y > mainMenu.startTextRect.y) && (y < mainMenu.startTextRect.y + mainMenu.startTextRect.h))
+                    if (InsideRect(mainMenu.startTextRect, x, y))
                     {
                         string level1 = "level1";
                         ConstructLevel(level1);
                         currentMenu = Menu::game;
                     }
-                    if ((x > mainMenu.editorTextRect.x) && (x < mainMenu.editorTextRect.x + mainMenu.editorTextRect.w) && (y > mainMenu.editorTextRect.y) && (y < mainMenu.editorTextRect.y + mainMenu.editorTextRect.h))
+                    if (InsideRect(mainMenu.editorTextRect, x, y))
                     {
                         levelEditor.ConstructLevelEditorBlocks();
                         currentMenu = Menu::levelEditor;
                     }
-                    if ((x > mainMenu.loadTextRect.x) && (x < mainMenu.loadTextRect.x + mainMenu.loadTextRect.w) && (y > mainMenu.loadTextRect.y) && (y < mainMenu.loadTextRect.y + mainMenu.loadTextRect.h))
+                    if (InsideRect(mainMenu.loadTextRect, x, y))
                     {
                         LoadLevels();
                         currentMenu = Menu::loadLevel;
                     }
-                    if ((x > mainMenu.exitTextRect.x) && (x < mainMenu.exitTextRect.x + mainMenu.exitTextRect.w) && (y > mainMenu.exitTextRect.y) && (y < mainMenu.exitTextRect.y + mainMenu.exitTextRect.h))
+                    if (InsideRect(mainMenu.exitTextRect, x, y))
                     {
                         running = false;
                     }
@@ -118,16 +119,17 @@ int main() {
                 if (currentMenu == Menu::levelEditor) {
                     for (size_t i = 0; i < levelEditor.editor_blocks.size(); i++)
                     {   
-                        if ((x > levelEditor.editor_blocks[i].x) && (x < levelEditor.editor_blocks[i].x + levelEditor.editor_blocks[i].w) && (y > levelEditor.editor_blocks[i].y) && (y < levelEditor.editor_blocks[i].y + levelEditor.editor_blocks[i].h))
+                        if (InsideRect(levelEditor.editor_blocks[i].rect, x, y))                        
                         {
                             levelEditor.editor_blocks[i].health++;
                             levelEditor.editor_blocks[i].health = levelEditor.editor_blocks[i].health % 5;
                             levelEditor.editor_blocks[i].updateColor();
+                            break;
                         }
                     }
 
-                    if ((x > levelEditor.button1.x) && (x < levelEditor.button1.x + levelEditor.button1.w) && (y > levelEditor.button1.y) && (y < levelEditor.button1.y + levelEditor.button1.h)) {
-                       
+                    if (InsideRect(levelEditor.button1, x, y))
+                    {                       
                         SDL_StartTextInput();
                         levelEditor.saveBoxString = "";
                         currentMenu = Menu::saveAs;
@@ -137,10 +139,12 @@ int main() {
                 if (currentMenu == Menu::loadLevel) {
                     for (size_t i = 0; i < levels.size(); i++)
                     {
-                        if ((x > levels[i].text_rect.x) && (x < levels[i].text_rect.x + levels[i].text_rect.w) && (y > levels[i].text_rect.y) && (y < levels[i].text_rect.y + levels[i].text_rect.h)) {
+                        if (InsideRect(levels[i].text_rect, x, y))
+                        {
                             cout << levels[i].levelName << endl;
                             ConstructLevel(levels[i].levelName);
                             currentMenu = Menu::game;
+                            break;
                         }
                     }
                 }
