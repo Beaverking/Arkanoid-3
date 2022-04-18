@@ -5,6 +5,10 @@
 
 void MainMenu::DrawMainMenu()
 {
+	// feedback: would be nice to see more efficient way of drawing. For example TTF_RenderText_Solid are relatively expensive operations
+	// as fell as creating textues. They could be done once and result could be saved for further use. Then in draw function you could call
+	// the actual rendering sdl functions only. This can be applied for all draw funcitons in your game.
+
 	TitleColor = { color1, 20, color2 };
 
 	titleMessage = TTF_RenderText_Solid(titleFont, "ARKANOID", TitleColor);

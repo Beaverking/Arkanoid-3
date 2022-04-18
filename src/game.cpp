@@ -119,7 +119,9 @@ void LoadFont()
 }
 
 void AddBall() {
-    Ball ball = Ball();
+    Ball ball = Ball(); // feedback: you don't have to call a constructor explicitly in this case. Declaring a Ball instance would
+                        // trigger default constructor for this class anyways. Currently you create 2 instences and a second instance is
+                        // being copied to the first one.
     ball.ballInStart(player.rect);
     ball.id = ballID;
     ballID++;
